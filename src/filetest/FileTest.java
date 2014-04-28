@@ -5,12 +5,27 @@
 package filetest;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -22,80 +37,161 @@ public class FileTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        FileReader in = null;
-        FileWriter out = null;
-        
-        BufferedReader bin = null;
         
         try {
-            in = new FileReader(".\\files\\input.txt");
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
             
-            bin = new BufferedReader(in);
+            Document doc = db.parse(new File(".\\files\\rezultati.xml"));
             
-            String data;
-            ArrayList<String> rezultati = new ArrayList<>();
+            doc.getDocumentElement().normalize();
             
-            while ((data = bin.readLine()) != null) {
-                rezultati.add(data);
-            }
+            NodeList nodeList = doc.getElementsByTagName("rezultat");
             
-            for (String rez : rezultati) {
-                int index = rez.lastIndexOf(' ');
+            int d = nodeList.getLength();
+            
+            for (int i = 0; i < d; i++) {
+                Node node = nodeList.item(i);
                 
-                String ime = rez.substring(0, index);
-                int bodovi = Integer.parseInt(rez.substring(index + 1));
+                System.out.println("Cvor: " + node.getNodeName());
                 
-                System.out.println("Ime: " + ime);
-                System.out.println("Bodovi: " + bodovi);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element elm = (Element) node;
+                    
+                    System.out.println("Ime: " + elm.getAttribute("ime"));
+                    System.out.println("Bodovi: " + elm.getAttribute("bodovi"));
+                }
             }
             
-            
-            /*
-            out = new FileWriter(".\\files\\output.txt");
-            
-            bin = new BufferedReader(in);
-            
-            String data;
-            ArrayList<String> rijeci = new ArrayList<>();
-            while ((data = bin.readLine()) != null) {
-                rijeci.add(data);
-            }
-            
-            int d = rijeci.size();
-            
-            Random r = new Random();
-            
-            int randomIndex = r.nextInt(d);
-            
-            System.out.println(rijeci.get(randomIndex));
-            */
-            
-        } catch (IOException ex) {
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (bin != null) {
-                try {
-                    bin.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
+            
+            
+        
+        /*
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            
+            Document doc = db.newDocument();
+            
+            Element root = doc.createElement("rezultati");
+            doc.appendChild(root);
+            
+            String[] imena = { "aljosa", "dragana", "jelenav", "jelenar", "maja" };
+            int[] bodovi = { 1000, 900, 800, 700, 600 };
+            
+            for (int i = 0; i < 5; i++) {
+                Element rez = doc.createElement("rezultat");
+                root.appendChild(rez);
+                
+                rez.setAttribute("ime", imena[i]);
+                rez.setAttribute("bodovi", "" + bodovi[i]);
+
+                
+                Element ime = doc.createElement("ime");
+                ime.appendChild(doc.createTextNode(imena[i]));
+                rez.appendChild(ime);
+
+                Element bod = doc.createElement("bodovi");
+                bod.appendChild(doc.createTextNode("" + bodovi[i]));
+                rez.appendChild(bod);
+                
+            }
+            
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(".\\files\\rezultati.xml"));
+            
+            transformer.transform(source, result);
+            
+        } catch (ParserConfigurationException ex) {
+            System.out.println(ex.toString());
+        } catch (TransformerConfigurationException ex) {
+            System.out.println(ex.toString());
+        } catch (TransformerException ex) {
+            System.out.println(ex.toString());
+        }
+        */
+        /*
+            FileReader in = null;
+            FileWriter out = null;
+            
+            BufferedReader bin = null;
+            
+            try {
+                
+                File file = new File(".\\files\\input.txt");
+                
+                in = new FileReader(file);
+                
+                bin = new BufferedReader(in);
+                
+                String data;
+                ArrayList<String> rezultati = new ArrayList<>();
+                
+                while ((data = bin.readLine()) != null) {
+                    rezultati.add(data);
+                }
+                
+                for (String rez : rezultati) {
+                    int index = rez.lastIndexOf(' ');
+                    
+                    String ime = rez.substring(0, index);
+                    int bodovi = Integer.parseInt(rez.substring(index + 1));
+                    System.out.println("Ime: " + ime);
+                    System.out.println("Bodovi: " + bodovi);
+                }
+                
+                
+                
+                out = new FileWriter(".\\files\\output.txt");
+                
+                bin = new BufferedReader(in);
+                String data;
+                ArrayList<String> rijeci = new ArrayList<>();
+                while ((data = bin.readLine()) != null) {
+                    rijeci.add(data);
+                }
+                
+                int d = rijeci.size();
+                
+                Random r = new Random();
+                
+                int randomIndex = r.nextInt(d);
+                
+                System.out.println(rijeci.get(randomIndex));
+                
+                
+            } catch (IOException ex) {
+                Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (bin != null) {
+                    try {
+                        bin.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                if (out != null) {
+                    try {
+                        out.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            * */
     }
 }
