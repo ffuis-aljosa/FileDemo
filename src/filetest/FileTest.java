@@ -4,29 +4,6 @@
  */
 package filetest;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 /**
  *
  * @author Korisnik
@@ -38,6 +15,10 @@ public class FileTest {
      */
     public static void main(String[] args) {
         
+        FilesDemoFrame frame = new FilesDemoFrame();
+        frame.setVisible(true);
+        
+        /*
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -69,7 +50,7 @@ public class FileTest {
             
             
         
-        /*
+        
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -115,83 +96,5 @@ public class FileTest {
             System.out.println(ex.toString());
         }
         */
-        /*
-            FileReader in = null;
-            FileWriter out = null;
-            
-            BufferedReader bin = null;
-            
-            try {
-                
-                File file = new File(".\\files\\input.txt");
-                
-                in = new FileReader(file);
-                
-                bin = new BufferedReader(in);
-                
-                String data;
-                ArrayList<String> rezultati = new ArrayList<>();
-                
-                while ((data = bin.readLine()) != null) {
-                    rezultati.add(data);
-                }
-                
-                for (String rez : rezultati) {
-                    int index = rez.lastIndexOf(' ');
-                    
-                    String ime = rez.substring(0, index);
-                    int bodovi = Integer.parseInt(rez.substring(index + 1));
-                    System.out.println("Ime: " + ime);
-                    System.out.println("Bodovi: " + bodovi);
-                }
-                
-                
-                
-                out = new FileWriter(".\\files\\output.txt");
-                
-                bin = new BufferedReader(in);
-                String data;
-                ArrayList<String> rijeci = new ArrayList<>();
-                while ((data = bin.readLine()) != null) {
-                    rijeci.add(data);
-                }
-                
-                int d = rijeci.size();
-                
-                Random r = new Random();
-                
-                int randomIndex = r.nextInt(d);
-                
-                System.out.println(rijeci.get(randomIndex));
-                
-                
-            } catch (IOException ex) {
-                Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                if (bin != null) {
-                    try {
-                        bin.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                
-                if (in != null) {
-                    try {
-                        in.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                
-                if (out != null) {
-                    try {
-                        out.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(FileTest.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            * */
     }
 }
