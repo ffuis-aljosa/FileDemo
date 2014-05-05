@@ -35,6 +35,9 @@ public class FilesDemoFrame extends javax.swing.JFrame {
         readXmlBtn = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         openFilesFolder = new javax.swing.JButton();
+        createComplexXmlBtn = new javax.swing.JButton();
+        readComplexXmlFileBtn = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -82,12 +85,26 @@ public class FilesDemoFrame extends javax.swing.JFrame {
             }
         });
 
+        createComplexXmlBtn.setText("Create complex XML file");
+        createComplexXmlBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createComplexXmlBtnActionPerformed(evt);
+            }
+        });
+
+        readComplexXmlFileBtn.setText("Read complex XML file");
+        readComplexXmlFileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readComplexXmlFileBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
-            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+            .addComponent(jSeparator2)
             .addComponent(jSeparator3)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -97,12 +114,17 @@ public class FilesDemoFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(copyByteByByteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(copyCharByCharBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(copyCharByCharBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(createXmlBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(readXmlBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(readXmlBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(createComplexXmlBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(readComplexXmlFileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jSeparator4)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,8 +146,14 @@ public class FilesDemoFrame extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(createComplexXmlBtn)
+                    .addComponent(readComplexXmlFileBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(openFilesFolder)
-                .addGap(17, 17, 17))
+                .addContainerGap())
         );
 
         pack();
@@ -144,26 +172,37 @@ public class FilesDemoFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_randomWordBtnActionPerformed
 
     private void createXmlBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createXmlBtnActionPerformed
-        FilesDemo.createXmlFile();
+        FilesDemo.createSimpleXmlFile();
     }//GEN-LAST:event_createXmlBtnActionPerformed
 
     private void readXmlBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readXmlBtnActionPerformed
-        FilesDemo.readFromXmlFile();
+        FilesDemo.readSimpleXmlFile();
     }//GEN-LAST:event_readXmlBtnActionPerformed
 
     private void openFilesFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openFilesFolderActionPerformed
         FilesDemo.openProjectFolder();
     }//GEN-LAST:event_openFilesFolderActionPerformed
 
+    private void createComplexXmlBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createComplexXmlBtnActionPerformed
+        FilesDemo.createComplexXmlFile();
+    }//GEN-LAST:event_createComplexXmlBtnActionPerformed
+
+    private void readComplexXmlFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readComplexXmlFileBtnActionPerformed
+        FilesDemo.readComplexXmlFile();
+    }//GEN-LAST:event_readComplexXmlFileBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton copyByteByByteBtn;
     private javax.swing.JButton copyCharByCharBtn;
+    private javax.swing.JButton createComplexXmlBtn;
     private javax.swing.JButton createXmlBtn;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JButton openFilesFolder;
     private javax.swing.JButton randomWordBtn;
+    private javax.swing.JButton readComplexXmlFileBtn;
     private javax.swing.JButton readXmlBtn;
     // End of variables declaration//GEN-END:variables
 }
